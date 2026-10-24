@@ -1,0 +1,209 @@
+/* ============================================================
+   OFF-SEASON — contract summit and season transition
+   ============================================================ */
+.offseason-screen {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(1200px 700px at 82% -10%, rgba(var(--accent-rgb), .14), transparent 60%),
+    linear-gradient(180deg, #070a0e, #080b10 68%);
+}
+.off-bg { position: absolute; inset: 0; pointer-events: none; }
+.off-bg::before {
+  content: ""; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.022) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.022) 1px, transparent 1px);
+  background-size: 62px 62px;
+  mask-image: radial-gradient(ellipse at 50% 12%, #000, transparent 74%);
+}
+.off-speedline {
+  position: absolute; right: -15%; top: 4%; width: 80%; height: 90%;
+  background: repeating-linear-gradient(112deg, transparent 0 104px, rgba(255,255,255,.035) 105px 106px, transparent 107px 230px);
+  mask-image: linear-gradient(90deg, transparent, #000 52%, transparent);
+  opacity: .55;
+}
+.off-year {
+  position: absolute; right: 1%; top: -2%;
+  font-family: var(--font-display); font-style: italic; font-weight: 900;
+  font-size: clamp(220px, 34vw, 500px); line-height: .8; letter-spacing: -.08em;
+  color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,.045);
+  user-select: none;
+}
+.off-shell { width: min(1500px, 100%); margin: 0 auto; padding: 18px clamp(18px, 3.8vw, 54px) 0; position: relative; z-index: 2; }
+.off-top { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
+.off-top-meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
+.off-top-meta .back-link { padding: 4px 0; }
+
+.off-hero { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(320px, .65fr); gap: clamp(28px, 4vw, 60px); align-items: center; padding: clamp(30px, 5.5vh, 62px) 0 clamp(24px, 4vh, 44px); }
+.off-hero-copy h1 { font-size: clamp(38px, 5.3vw, 72px); font-weight: 850; letter-spacing: -.055em; line-height: 1.03; margin-top: 11px; }
+.off-hero-copy h1 em { font-style: normal; color: var(--accent); text-shadow: 0 0 50px rgba(var(--accent-rgb), .2); }
+.off-hero-copy > p { max-width: 650px; margin-top: 16px; color: var(--ink-mute); font-size: 14px; line-height: 1.8; }
+.off-hero-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 20px; }
+.off-hero-tags span { border: 1px solid var(--line); background: rgba(255,255,255,.02); padding: 6px 9px; font-family: var(--font-mono); font-size: 9.5px; color: var(--ink-faint); }
+.off-hero-tags b { color: var(--ink-dim); font-weight: 500; margin-left: 4px; }
+.off-last-card {
+  border: 1px solid var(--line); padding: 17px 19px; background:
+    radial-gradient(100% 120% at 100% 0%, rgba(var(--accent-rgb), .1), transparent 60%),
+    rgba(255,255,255,.02);
+  position: relative;
+}
+.off-last-card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--accent); }
+.off-last-pos { display: flex; align-items: baseline; gap: 7px; margin-top: 9px; }
+.off-last-pos span { font-family: var(--font-mono); font-size: 8.5px; color: var(--ink-faint); }
+.off-last-pos b { font-family: var(--font-display); font-style: italic; font-weight: 900; font-size: 43px; letter-spacing: -.05em; line-height: .9; }
+.off-last-pos i { font-family: var(--font-mono); font-style: normal; font-size: 11px; color: var(--ink-mute); }
+.off-last-rows { display: flex; gap: 0; margin-top: 12px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.off-last-rows > div { flex: 1; padding: 8px 0; border-left: 1px solid var(--line); padding-left: 10px; }
+.off-last-rows > div:first-child { border-left: 0; padding-left: 0; }
+.off-last-rows span { display: block; font-family: var(--font-mono); font-size: 8.5px; color: var(--ink-faint); }
+.off-last-rows b { display: block; font-family: var(--font-mono); font-size: 13px; color: var(--ink-dim); font-weight: 500; margin-top: 1px; }
+.off-champion { padding-top: 10px; display: flex; flex-direction: column; }
+.off-champion span { font-family: var(--font-mono); font-size: 8.5px; color: var(--ink-faint); letter-spacing: .06em; }
+.off-champion b { font-size: 15px; margin-top: 2px; }
+.off-champion small { font-size: 10px; color: var(--ink-faint); margin-top: 1px; }
+.off-empty-history { padding: 18px 0 6px; font-size: 11px; color: var(--ink-faint); }
+
+.offseason-grid { display: grid; grid-template-columns: minmax(0, 1.26fr) minmax(330px, .74fr); gap: 12px; align-items: start; }
+.off-main { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.off-side { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.off-contract-panel .panel-head { background: rgba(var(--accent-rgb), .025); }
+.offseat-list { padding: 11px 13px; display: flex; flex-direction: column; gap: 8px; }
+.offseat { border: 1px solid var(--line); background: rgba(255,255,255,.016); }
+.offseat.is-expired { border-color: rgba(255,96,114,.3); background: rgba(255,96,114,.03); }
+.offseat-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 7px 10px; border-bottom: 1px solid var(--line); }
+.offseat-head > span:first-child { font-family: var(--font-mono); font-size: 9px; color: var(--ink-faint); letter-spacing: .04em; }
+.offseat-contract { font-family: var(--font-mono); font-size: 9px; }
+.offseat-contract.safe { color: var(--ok); }
+.offseat-contract.expired { color: var(--bad); }
+.offseat-body { display: flex; align-items: center; gap: 10px; padding: 10px 11px; }
+.offseat-body .avatar { width: 47px; height: 47px; }
+.offseat-id { flex: 1; min-width: 0; }
+.offseat-id h3 { font-size: 17.5px; font-weight: 700; letter-spacing: -.02em; line-height: 1.2; }
+.offseat-id > span:last-child { display: block; font-family: var(--font-mono); font-size: 9px; color: var(--ink-faint); margin-top: 2px; }
+.offseat-morale { width: 126px; }
+.offseat-morale > span { display: block; font-family: var(--font-mono); font-size: 8.5px; color: var(--ink-faint); }
+.offseat-morale > i { display: block; height: 3px; background: rgba(255,255,255,.07); margin-top: 5px; }
+.offseat-morale > i em { display: block; height: 100%; background: var(--ok); }
+.offseat-morale.morale-ok > i em { background: var(--warn); }
+.offseat-morale.morale-bad > i em { background: var(--bad); }
+.offseat-morale b { display: block; font-family: var(--font-mono); font-size: 9px; color: var(--ink-mute); font-weight: 500; text-align: right; margin-top: 2px; }
+.offseat-foot { display: flex; align-items: center; gap: 13px; flex-wrap: wrap; padding: 7px 10px; border-top: 1px solid var(--line); }
+.offseat-foot > span { font-family: var(--font-mono); font-size: 9px; color: var(--ink-faint); }
+.offseat-foot > span b { color: var(--ink-mute); font-weight: 500; }
+.offseat-foot .btn { margin-left: auto; }
+.offseat-link { font-family: var(--font-mono); font-size: 9px; color: var(--ink-faint); text-decoration: underline; text-underline-offset: 3px; }
+.offseat-link:hover { color: var(--accent); }
+.off-contract-note { display: flex; align-items: center; gap: 5px; border-top: 1px solid var(--line); padding: 8px 13px; font-family: var(--font-mono); font-size: 8.5px; color: var(--ink-faint); }
+.off-contract-note .icon { width: 10px; height: 10px; }
+
+.off-market-panel .panel-head { background: rgba(255,255,255,.015); }
+.off-market-head { display: flex; justify-content: space-between; gap: 16px; padding: 10px 13px 3px; align-items: flex-start; }
+.off-market-head p { font-size: 12px; color: var(--ink-mute); line-height: 1.6; max-width: 620px; }
+.off-market-tabs { padding-inline: 13px; }
+.off-market-list { max-height: 500px; }
+.off-market-panel .note-line { margin-top: 0; }
+
+.off-car-body { display: flex; align-items: center; gap: 14px; padding: 13px 14px 10px; }
+.off-car-rating { flex: 0 0 auto; min-width: 91px; border-right: 1px solid var(--line); padding-right: 13px; }
+.off-car-rating b { display: block; font-family: var(--font-display); font-style: italic; font-weight: 900; font-size: 44px; line-height: .9; letter-spacing: -.05em; }
+.off-car-rating span { display: block; font-family: var(--font-mono); font-size: 8.5px; color: var(--ink-faint); margin-top: 3px; }
+.off-car-facts { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+.off-car-facts > div { display: flex; justify-content: space-between; gap: 8px; }
+.off-car-facts span { font-family: var(--font-mono); font-size: 8.5px; color: var(--ink-faint); }
+.off-car-facts b { font-family: var(--font-mono); font-size: 9.5px; color: var(--ink-mute); font-weight: 500; }
+.off-car-note { display: flex; align-items: flex-start; gap: 5px; border-top: 1px solid var(--line); padding: 8px 14px 10px; font-size: 10px; color: var(--ink-faint); line-height: 1.55; }
+.off-car-note .icon { width: 10px; height: 10px; margin-top: 1px; flex: 0 0 auto; }
+
+.offsponsor-options { padding: 10px; display: flex; flex-direction: column; gap: 6px; }
+.offsponsor-offer {
+  border: 1px solid var(--line); padding: 9px 10px;
+  background: linear-gradient(110deg, rgba(var(--sponsor-rgb), .06), transparent 70%);
+}
+.offsponsor-name { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; font-family: var(--font-display); font-weight: 800; letter-spacing: -.01em; font-size: 15px; color: var(--sponsor); }
+.offsponsor-name span { font-family: var(--font-mono); font-size: 8px; color: var(--ink-faint); letter-spacing: .04em; }
+.offsponsor-money { display: flex; align-items: baseline; gap: 6px; margin-top: 4px; }
+.offsponsor-money span { font-family: var(--font-mono); font-size: 8.5px; color: var(--ink-faint); }
+.offsponsor-money b { font-family: var(--font-mono); font-size: 13px; color: var(--ink-dim); font-weight: 500; }
+.offsponsor-money em { font-style: normal; font-family: var(--font-mono); font-size: 8.5px; color: var(--ink-faint); }
+.offsponsor-offer p { font-size: 10px; color: var(--ink-mute); line-height: 1.5; margin-top: 4px; }
+.offsponsor-offer .btn { width: 100%; margin-top: 6px; }
+.offsponsor-signed { padding: 13px 14px; }
+.offsponsor-signed > div:first-child span { display: block; font-family: var(--font-mono); font-size: 8.5px; color: var(--ink-faint); }
+.offsponsor-signed > div:first-child b { display: block; font-family: var(--font-display); font-size: 24px; font-weight: 900; color: var(--sponsor); letter-spacing: -.02em; }
+.offsponsor-signed > div:first-child small { display: block; font-size: 10px; color: var(--ink-mute); }
+.offsponsor-signed-figures { display: flex; gap: 12px; flex-wrap: wrap; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 7px 0; margin-top: 9px; }
+.offsponsor-signed-figures span { font-family: var(--font-mono); font-size: 9px; color: var(--ink-mute); }
+.offsponsor-terms { padding-top: 7px; display: flex; flex-direction: column; gap: 2px; }
+.offsponsor-terms span { font-size: 9.5px; color: var(--ink-faint); }
+.offsponsor-terms span::before { content: "＋"; color: var(--sponsor); margin-right: 4px; }
+
+.off-history-list { padding: 4px 13px 8px; }
+.off-history-row { display: grid; grid-template-columns: 36px 36px 1fr; gap: 8px; padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,.04); align-items: baseline; }
+.off-history-row:last-child { border-bottom: 0; }
+.off-history-row > span { font-family: var(--font-mono); font-size: 9px; color: var(--ink-faint); }
+.off-history-row > b { font-family: var(--font-display); font-style: italic; font-size: 17.5px; font-weight: 800; color: var(--ink-dim); letter-spacing: -.03em; }
+.off-history-row > em { font-style: normal; font-family: var(--font-mono); font-size: 8.5px; color: var(--ink-faint); text-align: right; }
+.off-history-panel .off-empty-history { padding: 14px 13px; }
+
+.off-commit {
+  position: sticky; bottom: 0; z-index: 20;
+  display: flex; align-items: center; gap: 20px;
+  margin: 14px -1px 0; padding: 12px clamp(16px, 3vw, 28px);
+  border: 1px solid var(--line-strong);
+  background: rgba(8,11,16,.94);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 -20px 50px -30px rgba(0,0,0,.9);
+}
+.off-commit-copy { flex: 1; min-width: 0; }
+.off-commit-title { font-size: 14px; font-weight: 650; }
+.off-commit-checks { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 4px; }
+.off-commit-checks span { display: flex; align-items: center; gap: 4px; font-family: var(--font-mono); font-size: 8.5px; color: var(--ink-faint); }
+.off-commit-checks span.ok { color: var(--ok); }
+.off-commit-checks span.bad { color: var(--bad); }
+.off-commit-checks .icon { width: 9px; height: 9px; }
+.off-commit-budget { text-align: right; }
+.off-commit-budget span { display: block; font-family: var(--font-mono); font-size: 8.5px; color: var(--ink-faint); }
+.off-commit-budget b { display: block; font-family: var(--font-mono); font-size: 14px; color: var(--ink-dim); font-weight: 500; }
+.off-commit > .btn { flex: 0 0 auto; }
+
+@media (max-width: 1180px) {
+  .offseason-grid { grid-template-columns: 1fr; }
+  .off-side { display: grid; grid-template-columns: 1fr 1fr; align-items: start; }
+  .off-sponsor-panel { grid-row: span 2; }
+  .off-hero { grid-template-columns: 1fr; gap: 22px; padding-top: 32px; }
+  .off-last-card { max-width: 560px; }
+}
+@media (max-width: 800px) {
+  .offseason-screen { overflow: visible; }
+  .off-shell { padding: 14px 14px 0; }
+  .off-top { flex-wrap: wrap; gap: 12px; }
+  .off-top-meta { justify-content: flex-start; }
+  .off-hero-copy h1 { font-size: clamp(32px, 9vw, 50px); }
+  .off-hero-copy > p { font-size: 13px; }
+  .off-side { display: flex; }
+  .off-commit { flex-wrap: wrap; position: sticky; }
+  .off-commit-budget { margin-left: auto; }
+  .off-commit > .btn { width: 100%; }
+  .offseat-foot { gap: 9px; }
+  .offseat-foot .btn { margin-left: 0; }
+  .offseat-morale { width: 100px; }
+}
+@media (max-width: 520px) {
+  .off-bg .off-year { font-size: 280px; }
+  .off-top-meta .badge.team { display: none; }
+  .off-top .back-link { font-size: 9px; }
+  .off-hero-tags span { font-size: 8.5px; }
+  .offseat-body { flex-wrap: wrap; }
+  .offseat-morale { width: 100%; flex-basis: 100%; }
+  .off-contract-panel .panel-head { flex-wrap: wrap; gap: 5px; }
+  .off-market-head { flex-direction: column; gap: 5px; }
+  .off-market-head .market-filter { display: flex; gap: 8px; align-items: baseline; text-align: left; }
+  .off-market-head .market-filter b { margin-top: 0; }
+  .off-commit-title { font-size: 13px; }
+  .off-commit-checks { gap: 7px; }
+}
+
+.offseat-id > span.form-badge { display: inline-flex; width: fit-content; font-family: var(--font-mono); }
+.offseason-screen { overflow-x: clip; }

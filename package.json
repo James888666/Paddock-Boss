@@ -1,0 +1,14 @@
+{
+  "name": "paddock-boss",
+  "version": "0.4.0",
+  "private": true,
+  "type": "module",
+  "description": "Unofficial 2026 F1 team principal simulation — a zero-dependency, single-file browser game.",
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT"
+}
