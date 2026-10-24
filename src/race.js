@@ -41,15 +41,25 @@ function trackSurfaceInfo(water, rain = 0) {
   return { key: 'dry', short: 'DRY', label: '干地', cls: '', water: w, rain: r };
 }
 
-function buildWeatherFronts(track, startRain, totalLaps) {
+function recentWetStreakFactor() {
+  const recent = (state.races || []).slice(-2);
+  if (!recent.length) return 1;
+  const wetCount = recent.filter((race) => race.wet).length;
+  if (wetCount >= 2) return 0.32;
+  if (wetCount === 1) return 0.62;
+  return 1;
+}
+
+function buildWeatherFronts(track, startRain, totalLaps, streakFactor = 1) {
   const climate = clamp(Number(track?.rain) || 0.2, 0.01, 0.95);
+  const streak = clamp(Number(streakFactor) || 1, 0.25, 1);
   const fronts = [];
   if (startRain > 0.04) {
     const end = clamp(3 + Math.floor(Math.random() * Math.min(13, Math.max(2, totalLaps - 7))), 3, Math.max(3, totalLaps - 5));
     fronts.push({ from: 1, to: end, intensity: clamp(startRain, 0.25, 0.95), opening: true });
   }
   let cursor = startRain > 0.04 ? fronts[0].to + 3 : 4;
-  const extraChance = clamp(0.12 + climate * 0.44, 0.12, 0.55);
+  const extraChance = clamp((0.035 + climate * 0.30) * streak, 0.02, 0.24);
   for (let i = 0; i < 2; i += 1) {
     if (cursor >= totalLaps - 6) break;
     if (!chance(extraChance)) {
@@ -67,12 +77,13 @@ function buildWeatherFronts(track, startRain, totalLaps) {
 
 function generateWeekendWeather(track) {
   const climate = clamp(Number(track?.rain) || 0.2, 0.01, 0.95);
-  const startsWet = chance(clamp(0.045 + climate * 0.44, 0.045, 0.5));
+  const streakFactor = recentWetStreakFactor();
+  const startsWet = chance(clamp((0.012 + climate * 0.28) * streakFactor, 0.01, 0.30));
   const startRain = startsWet ? round2(0.26 + Math.random() * 0.62) : 0;
   let startWater = 0;
   if (startsWet) {
     startWater = clamp(Math.round(17 + startRain * 55 + Math.random() * 17), 15, 94);
-  } else if (chance(clamp(0.055 + climate * 0.18, 0.055, 0.24))) {
+  } else if (chance(clamp((0.03 + climate * 0.12) * streakFactor, 0.01, 0.16))) {
     startWater = Math.round(4 + Math.random() * 9);
   } else {
     startWater = Math.round(Math.random() * 3);
@@ -80,8 +91,8 @@ function generateWeekendWeather(track) {
   const wet = startWater >= WET_SURFACE_THRESHOLD || startRain > 0.04;
   const tempTrack = wet ? Math.round(18 + Math.random() * 8) : Math.round(31 + Math.random() * 16);
   const tempAir = wet ? Math.round(14 + Math.random() * 6) : Math.round(20 + Math.random() * 11);
-  const rainChance = Math.round(clamp((wet ? 60 : 16) + climate * 44 + Math.random() * 14, 7, 97));
-  const fronts = buildWeatherFronts(track, startRain, track.laps);
+  const rainChance = Math.round(clamp((wet ? 52 : 8) + climate * 38 + Math.random() * 10, 5, 92));
+  const fronts = buildWeatherFronts(track, startRain, track.laps, streakFactor);
   return {
     climate,
     startWater,
