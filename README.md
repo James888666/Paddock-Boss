@@ -166,15 +166,6 @@ npm run build
 
 技术栈就是 HTML、CSS 和原生 JavaScript。所有图形由 CSS/SVG 绘制，字体使用系统字体栈，不加载外部字体、图片或分析脚本。
 
-## 部署到 GitHub Pages
-
-仓库根目录已经包含构建好的 `index.html`，不需要在部署时再构建：
-
-1. 把仓库推送到 GitHub。
-2. 打开 **Settings → Pages**。
-3. 在 **Build and deployment** 中选择 **Deploy from a branch**。
-4. 选择 `main` 分支和 `/ (root)` 目录，保存。
-5. 访问 `https://<你的用户名>.github.io/<仓库名>/`。
 
 ## 数据与声明
 
